@@ -12,7 +12,7 @@ namespace QuickReach.ECommerce.Domain.Models
         public List<CartItem> Items { get; set; }
         public Cart(string customerId)
         {
-            BuyerId = customerId;
+            CustomerId = customerId;
             Items = new List<CartItem>();
         }
     }
