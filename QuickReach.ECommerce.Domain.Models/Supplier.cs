@@ -40,6 +40,10 @@ namespace QuickReach.ECommerce.Domain.Models
             
             ((ICollection<ProductSupplier>)this.ProductSuppliers).Add(productSupplier);
         }
-
+        public void RemoveProduct(int productId)
+        {
+            var product = this.GetProduct(productId);
+            ((ICollection<ProductSupplier>)this.ProductSuppliers).Remove(product);
+        }
     }
 }

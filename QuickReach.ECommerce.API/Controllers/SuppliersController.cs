@@ -101,5 +101,26 @@ namespace QuickReach.ECommerce.API.Controllers
             repository.Update(supplierId, supplier);
             return Ok(supplier);
         }
+        [HttpPut("{id}/products/{productId}")]
+        public IActionResult DeleteSupplierProduct(int id, int productId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var supplier = repository.Retrieve(id);
+            if (supplier == null)
+            {
+                return NotFound();
+            }
+            if (productrepository.Retrieve(productId) == null)
+            {
+                return NotFound();
+            }
+            supplier.RemoveProduct(productId);
+            repository.Update(id, supplier);
+            return Ok();
+        }
+
     }
 }

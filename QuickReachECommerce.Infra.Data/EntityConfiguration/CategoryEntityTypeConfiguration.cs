@@ -7,7 +7,7 @@ using System.Text;
 
 namespace QuickReach.ECommerce.Infra.Data.EntityConfiguration
 {
-	class CategoryEntityTypeConfiguration
+	public class CategoryEntityTypeConfiguration
 		: IEntityTypeConfiguration<Category>
 	{
 		public void Configure(EntityTypeBuilder<Category> builder)
