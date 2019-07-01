@@ -60,11 +60,9 @@ namespace QuickReach.ECommerce.Domain.Models
 					.FirstOrDefault(pc => pc.CategoryID == this.ID &&
 							   pc.ProductID == productId);
 		}
-
 		public void RemoveProduct(int productId)
 		{
 			var child = this.GetProduct(productId);
-
 			((ICollection<ProductCategory>)this.ProductCategories).Remove(child);
 		}
 	}

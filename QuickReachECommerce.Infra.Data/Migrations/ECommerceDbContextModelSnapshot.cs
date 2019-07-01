@@ -89,6 +89,19 @@ namespace QuickReach.ECommerce.Infra.Data.Migrations
                     b.ToTable("ProductCategory");
                 });
 
+            modelBuilder.Entity("QuickReach.ECommerce.Domain.Models.ProductSupplier", b =>
+                {
+                    b.Property<int>("SupplierID");
+
+                    b.Property<int>("ProductID");
+
+                    b.HasKey("SupplierID", "ProductID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("ProductSupplier");
+                });
+
             modelBuilder.Entity("QuickReach.ECommerce.Domain.Models.Supplier", b =>
                 {
                     b.Property<int>("ID")
@@ -133,6 +146,19 @@ namespace QuickReach.ECommerce.Infra.Data.Migrations
                     b.HasOne("QuickReach.ECommerce.Domain.Models.Product", "Product")
                         .WithMany("ProductCategories")
                         .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("QuickReach.ECommerce.Domain.Models.ProductSupplier", b =>
+                {
+                    b.HasOne("QuickReach.ECommerce.Domain.Models.Product", "Product")
+                        .WithMany("ProductSuppliers")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("QuickReach.ECommerce.Domain.Models.Supplier", "Supplier")
+                        .WithMany("ProductSuppliers")
+                        .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

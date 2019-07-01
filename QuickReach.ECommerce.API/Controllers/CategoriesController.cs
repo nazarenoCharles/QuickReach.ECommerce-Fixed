@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickReach.ECommerce.API.ViewModel;
@@ -128,25 +129,26 @@ namespace QuickReach.ECommerce.API.Controllers
 		}
 
 		[HttpGet("{id}/products")]
-		public IActionResult GetProductByCategory(int id)
-		{
-			var parameter = new SqlParameter("@categoryId", id);
-			var result = this.context
-				.Query<SearchItemViewModel>()
-				.FromSql(
-				@"SELECT pc.ProductID,
-							pc.CategoryID,
-							p.Name,
-							p.Description,
-							p.Price,
-							p.ImageUrl FROM
-							Product p INNER JOIN
-							ProductCategory pc ON p.ID = pc.ProductID
-							WHERE pc.CategoryID = @categoryId", parameter)
-							.AsNoTracking()
-							.ToList();
-
-			return Ok(result);
-		}
-	}
+        public IActionResult GetProductsByCategory(int id)
+        {
+            var connectionString =
+            "Server=.;Database=QuickReachDb;Integrated Security=true;";
+            var connection = new SqlConnection(connectionString);
+            var sql = @"SELECT p.ID,
+                         pc.ProductID, 
+                         pc.CategoryID,
+                         p.Name, 
+                         p.Description,
+                         p.Price,
+                         p.ImageUrl
+                    FROM Product p INNER JOIN ProductCategory pc ON p.ID = pc.ProductID
+                    Where pc.CategoryID = @categoryId";
+            var parameter = new SqlParameter("@categoryId", id);
+            var categories = connection
+                .Query<SearchItemViewModel>(
+                sql, new { categoryId = id })
+                    .ToList();
+            return Ok(categories);
+        }
+    }
 }
