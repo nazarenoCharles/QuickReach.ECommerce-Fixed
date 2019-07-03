@@ -15,7 +15,6 @@ namespace QuickReach.ECommerce.Domain.Models
 			this.ChildCategories = new List<CategoryRollup>();
 			this.ProductCategories = new List<ProductCategory>();
 			this.ParentCategories = new List<CategoryRollup>();
-
 		}
 		[Required]
 		[MaxLength(40)]

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuickReachECommerce.Infra.Data;
 
 namespace QuickReach.ECommerce.Infra.Data.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190703055328_added relations, manufacturers")]
+    partial class addedrelationsmanufacturers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,6 @@ namespace QuickReach.ECommerce.Infra.Data.Migrations
 
                     b.Property<int?>("CartID");
 
-                    b.Property<int?>("CartID1");
-
                     b.Property<decimal>("OldUnitPrice");
 
                     b.Property<string>("PictureUrl");
@@ -56,8 +56,6 @@ namespace QuickReach.ECommerce.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartID");
-
-                    b.HasIndex("CartID1");
 
                     b.ToTable("CartItem");
                 });
@@ -250,13 +248,8 @@ namespace QuickReach.ECommerce.Infra.Data.Migrations
             modelBuilder.Entity("QuickReach.ECommerce.Domain.Models.CartItem", b =>
                 {
                     b.HasOne("QuickReach.ECommerce.Domain.Models.Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartID")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("QuickReach.ECommerce.Domain.Models.Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartID1")
+                        .HasForeignKey("CartID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

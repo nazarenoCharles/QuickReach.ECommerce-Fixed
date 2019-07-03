@@ -5,6 +5,7 @@ using System.Text;
 
 namespace QuickReach.ECommerce.Domain.Models
 {
+    
     public class CartItem : IValidatableObject
     {
         public string Id { get; set; }
@@ -24,5 +25,6 @@ namespace QuickReach.ECommerce.Domain.Models
             }
             return result;
         }
+
     }
 }

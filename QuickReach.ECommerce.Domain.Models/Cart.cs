@@ -15,5 +15,7 @@ namespace QuickReach.ECommerce.Domain.Models
             CustomerId = customerId;
             Items = new List<CartItem>();
         }
+        public IEnumerable<CartItem> CartItems { get; set; }
+
     }
 }

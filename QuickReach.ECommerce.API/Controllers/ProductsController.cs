@@ -35,9 +35,15 @@ namespace QuickReach.ECommerce.API.Controllers
 			var product = this.repository.Retrieve(id);
 			return Ok(product);
 		}
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            this.repository.Delete(id);
+            return Ok();
+        }
 
-		// POST api/<controller>
-		[HttpPost]
+        // POST api/<controller>
+        [HttpPost]
 		public IActionResult Post([FromBody] Product product)
 		{
 			if (!this.ModelState.IsValid)
@@ -70,11 +76,6 @@ namespace QuickReach.ECommerce.API.Controllers
 			return Ok(product);
 		}
 
-		[HttpDelete("{id}")]
-		public IActionResult Delete(int id)
-		{
-			this.repository.Delete(id);
-			return Ok();
-		}
+
 	}
 }

@@ -13,8 +13,8 @@ namespace QuickReach.ECommerce.Domain.Models
         public Supplier()
         {
             this.ProductSuppliers = new List<ProductSupplier>();
-
         }
+
         [Required]
 		[MaxLength(40)]
 		public string Name { get; set; }

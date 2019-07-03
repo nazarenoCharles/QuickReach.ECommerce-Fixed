@@ -32,7 +32,12 @@ namespace QuickReach.ECommerce.API.Controllers
 
             return Ok(supplier);
         }
-
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            this.repository.Delete(id);
+            return Ok();
+        }
         // GET api/<controller>/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
@@ -75,20 +80,14 @@ namespace QuickReach.ECommerce.API.Controllers
             return Ok(supplier);
         }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            this.repository.Delete(id);
-            return Ok();
-        }
+       
 
         [HttpPost("{supplierId}/products")]
-        public IActionResult AddProductSupplier(int supplierId, [FromBody] ProductSupplier entity)
+        public IActionResult AddProductManufacturer(int manufacturerId, [FromBody] ProductManufacturer entity)
         {
-            var supplier = this.repository.Retrieve(supplierId);
+            var manufacturer = this.repository.Retrieve(manufacturerId);
             var product = productrepository.Retrieve(entity.ProductID);
-            if (supplier == null)
+            if (manufacturer == null)
             {
                 return NotFound();
             }
@@ -97,19 +96,20 @@ namespace QuickReach.ECommerce.API.Controllers
                 return NotFound();  
             }
 
-            supplier.AddProduct(entity.ProductID);
-            repository.Update(supplierId, supplier);
-            return Ok(supplier);
+            manufacturer.AddProduct(entity.ProductID);
+            repository.Update(manufacturerId, manufacturer);
+            return Ok(manufacturer);
         }
+        // DELETE api/<controller>/5
         [HttpPut("{id}/products/{productId}")]
-        public IActionResult DeleteSupplierProduct(int id, int productId)
+        public IActionResult DeleteManufacturerProduct(int id, int productId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var supplier = repository.Retrieve(id);
-            if (supplier == null)
+            var manufacturer = repository.Retrieve(id);
+            if (manufacturer == null)
             {
                 return NotFound();
             }
@@ -117,8 +117,8 @@ namespace QuickReach.ECommerce.API.Controllers
             {
                 return NotFound();
             }
-            supplier.RemoveProduct(productId);
-            repository.Update(id, supplier);
+            manufacturer.RemoveProduct(productId);
+            repository.Update(id, manufacturer);
             return Ok();
         }
 

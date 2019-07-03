@@ -45,7 +45,7 @@ namespace QuickReach.ECommerce.API.Controllers
 			var category = this.repository.Retrieve(id);
 			return Ok(category);
 		}
-
+            
 		// POST api/categories
 		[HttpPost]
 		public IActionResult Post([FromBody] Category category)
